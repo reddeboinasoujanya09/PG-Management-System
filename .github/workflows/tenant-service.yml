@@ -1,0 +1,37 @@
+name: Tenant Service Pipeline
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'tenantService/**'
+      - 'common/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: tenantService
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build (Maven or Gradle)
+        run: |
+          if [ -f "pom.xml" ]; then
+            mvn clean install
+          elif [ -f "gradlew" ]; then
+            chmod +x gradlew
+            ./gradlew build
+          else
+            echo "No build tool found"
+            exit 1
+          fi

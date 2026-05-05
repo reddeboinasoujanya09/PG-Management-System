@@ -1,0 +1,27 @@
+name: Admin Config Pipeline
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'admin-config/**'
+      - 'common/**'
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: admin-config
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - run: npm install
+      - run: npm run test --if-present
+      - run: npm run build --if-present
