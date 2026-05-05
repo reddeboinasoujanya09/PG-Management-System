@@ -2,7 +2,7 @@ name: Billing Service Pipeline
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
     paths:
       - 'billingService/**'
       - 'common/**'

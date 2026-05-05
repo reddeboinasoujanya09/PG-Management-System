@@ -2,7 +2,7 @@ name: Admin Config Pipeline
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
     paths:
       - 'admin-config/**'
       - 'common/**'

@@ -2,7 +2,7 @@ name: Booking Service Pipeline
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
     paths:
       - 'bookingService/**'
       - 'common/**'

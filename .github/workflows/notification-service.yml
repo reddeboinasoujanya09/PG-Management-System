@@ -2,7 +2,7 @@ name: Notification Service Pipeline
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
     paths:
       - 'notification-service/**'
       - 'common/**'

@@ -2,7 +2,7 @@ name: Payment Service Pipeline
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
     paths:
       - 'paymentService/**'
       - 'common/**'

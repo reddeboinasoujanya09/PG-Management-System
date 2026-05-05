@@ -2,7 +2,7 @@ name: Global Check
 
 on:
   pull_request:
-    branches: [master]
+    branches: [Master]
 
 jobs:
   always-pass:
