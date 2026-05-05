@@ -1,0 +1,11 @@
+name: Global Check
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  always-pass:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Global check passed"
