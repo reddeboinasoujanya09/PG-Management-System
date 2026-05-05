@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: tenantService
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tenant_db
+    username: postgres
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
