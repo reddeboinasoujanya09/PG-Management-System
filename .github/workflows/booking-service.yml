@@ -15,6 +15,21 @@ jobs:
       run:
         working-directory: bookingService
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pg_management_db
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: pass@123
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U admin -d pg_management_db"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - uses: actions/checkout@v4
 
