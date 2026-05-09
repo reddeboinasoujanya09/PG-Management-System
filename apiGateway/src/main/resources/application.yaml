@@ -1,6 +1,21 @@
 spring:
   application:
     name: apiGateway
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pg_management_db
+    username: admin
+    password: "pass@123"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   cloud:
     gateway:
       routes:
@@ -30,5 +45,20 @@ spring:
           predicates:
             - Path=/api/v1/notifications/**
 
+        - id: billing-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/v1/bill/**
+
+        - id: admin-service
+          uri: http://localhost:3003
+          predicates:
+            - Path=/api/v1/admin/**
+
+        - id: audit-service
+          uri: http://localhost:3004
+          predicates:
+            - Path=/api/v1/audit/**
+            -
 server:
   port: 8080

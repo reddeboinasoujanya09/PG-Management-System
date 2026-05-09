@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="" />
+    <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/audit-service/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apiGateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apiGateway/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audit-service/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audit-service/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audit-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billingService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/billingService/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bookingService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/bookingService/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paymentService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentService/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +30,27 @@
       <entry key="_/Users/I578054/Desktop/interview prep- 2026/project" value="3D9qGgSyIFAhlgZJwkmuk4y1WXe" />
     </persistenceIdMap>
   </component>
+  <component name="CopilotUserSelectedModel">
+    <selectedModels>
+      <entry key="chat-panel" value="GPT-5.3-Codex" />
+      <entry key="agent-panel" value="GPT-5.3-Codex" />
+    </selectedModels>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="workflow" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/admin-config" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -38,17 +72,25 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "cli-test",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.start:dev.executor": "Run",
+    "onboarding.tips.debug.path": "/Users/I578054/Desktop/interview prep- 2026/project/common/src/Main.java",
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "MavenSettings",
+    "ts.external.directory.path": "/Users/I578054/Desktop/interview prep- 2026/project/admin-config/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -59,7 +101,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.TenantServiceApplication">
+  <component name="RunManager" selected="npm.start:dev">
     <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="apiGateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.apiGateway.ApiGatewayApplication" />
@@ -95,6 +137,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="start:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/admin-config/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start:dev" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -113,12 +170,24 @@
       <updated>1777704539163</updated>
       <workItem from="1777704540309" duration="2109000" />
       <workItem from="1777823949656" duration="3048000" />
-      <workItem from="1777963731925" duration="1323000" />
+      <workItem from="1777963731925" duration="6964000" />
+      <workItem from="1778077214529" duration="5939000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/Main.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
