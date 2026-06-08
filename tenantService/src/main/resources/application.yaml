@@ -2,20 +2,27 @@ spring:
   application:
     name: tenantService
 
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/pg_management_db
-    username: admin
-    password: "pass@123"
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pg_management_db}
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:pass@123}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
 server:
   port: 8081

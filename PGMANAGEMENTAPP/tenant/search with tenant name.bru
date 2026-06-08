@@ -1,0 +1,21 @@
+meta {
+  name: search with tenant name
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8081/api/v1/tenants//search
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "tenantName":"soujanya",
+  "tenantEmail": "reddeboinasoujanya@gmail.com",
+  "tenantPhoneNumber":"9034763764",
+  "tenantAddress":"india",
+  "tenantType":"PERMANENT"
+  }
+}

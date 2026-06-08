@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-tenants-table.sql
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/002-enum-columns-to-varchar.sql
+      relativeToChangelogFile: false

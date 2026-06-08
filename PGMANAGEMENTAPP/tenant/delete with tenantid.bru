@@ -1,0 +1,21 @@
+meta {
+  name: delete with tenantid
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8081/api/v1/tenants/tenant-1779001511337
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "tenantName":"soujanya",
+  "tenantEmail": "reddeboinasoujanya@gmail.com",
+  "tenantPhoneNumber":"9034763764",
+  "tenantAddress":"india",
+  "tenantType":"PERMANENT"
+  }
+}
