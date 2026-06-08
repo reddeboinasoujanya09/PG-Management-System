@@ -44,6 +44,17 @@ cd "<root>/project/paymentService"
 ```
 
 
+### Tenant Service (`tenantService`)
+```bash
+cd "<root>/project/tenantService"
+./mvnw spring-boot:run
+```
+> Runs on port **8081**. Requires PostgreSQL (`pg_management_db`) to be running.
+> On first run, Liquibase automatically applies all pending schema migrations.
+> To override DB credentials: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` env vars.
+
+---
+
 ###  Room Service (room-service)
 ```bash
 cd "<root>/project/room-service"

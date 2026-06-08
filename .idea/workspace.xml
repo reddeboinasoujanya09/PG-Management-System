@@ -4,20 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/audit-service/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="updated few config for local setup">
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apiGateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apiGateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/audit-service/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/audit-service/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/audit-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/audit-service/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/billingService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/billingService/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookingService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/bookingService/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paymentService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/paymentService/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/DuplicateEmailException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TemparoryDateRequiredException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TenantNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/Tenant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,18 +41,24 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="workflow" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Master" />
+        <entry key="$PROJECT_DIR$" value="github-workflow" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -59,6 +66,9 @@
         <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -68,24 +78,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "cli-test",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start:dev.executor": "Run",
-    "onboarding.tips.debug.path": "/Users/I578054/Desktop/interview prep- 2026/project/common/src/Main.java",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "ts.external.directory.path": "/Users/I578054/Desktop/interview prep- 2026/project/admin-config/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tenant-service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start:dev.executor&quot;: &quot;Run&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/I578054/Desktop/interview prep- 2026/project/common/src/Main.java&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/I578054/Desktop/interview prep- 2026/project/admin-config/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/common" />
@@ -101,7 +112,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.start:dev">
+  <component name="RunManager" selected="Spring Boot.TenantServiceApplication">
     <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="apiGateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.apiGateway.ApiGatewayApplication" />
@@ -172,11 +183,34 @@
       <workItem from="1777823949656" duration="3048000" />
       <workItem from="1777963731925" duration="6964000" />
       <workItem from="1778077214529" duration="5939000" />
+      <workItem from="1778993470358" duration="8751000" />
+      <workItem from="1780729073191" duration="14135000" />
     </task>
+    <task id="LOCAL-00001" summary="updated few config for local setup">
+      <option name="closed" value="true" />
+      <created>1778321376195</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778321376195</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated few config for local setup">
+      <option name="closed" value="true" />
+      <created>1778322543608</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778322543608</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated few config for local setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated few config for local setup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -185,6 +219,11 @@
           <url>file://$PROJECT_DIR$/common/src/Main.java</url>
           <line>11</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

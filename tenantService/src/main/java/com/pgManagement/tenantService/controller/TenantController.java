@@ -1,8 +1,8 @@
 package com.pgManagement.tenantService.controller;
 
-import com.pgManagement.tenantService.dto.Tenant;
 import com.pgManagement.tenantService.dto.TenantDTO;
 import com.pgManagement.tenantService.dto.TenantUpdateDTO;
+import com.pgManagement.tenantService.entity.Tenant;
 import com.pgManagement.tenantService.service.TenantService;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,35 +28,34 @@ public class TenantController {
         this.tenantService = tenantService;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Tenant> createTenant(@Valid @RequestBody TenantDTO tenant) {
-
-        Tenant tenantCreated= tenantService.createTenant(tenant);
-        URI location = URI.create("/api/v1/tenants/" + tenantCreated.getTenantId());
-        return ResponseEntity.created(location).body(tenantCreated);
+        Tenant created = tenantService.createTenant(tenant);
+        URI location = URI.create("/api/v1/tenants/" + created.getTenantId());
+        return ResponseEntity.created(location).body(created);
     }
 
     @GetMapping("/{tenantId}")
     public ResponseEntity<Tenant> getById(@PathVariable String tenantId) {
-        Tenant tenant = tenantService.getById(tenantId);
-        return ResponseEntity.ok(tenant);
+        return ResponseEntity.ok(tenantService.getById(tenantId));
     }
 
-    @GetMapping("/search/{tenantName}")
-    public ResponseEntity<List<Tenant>> getByName(@PathVariable String tenantName) {
-        return ResponseEntity.ok(tenantService.getByName(tenantName));
-    }
-
-    @DeleteMapping("/{tenantId}")
-    public ResponseEntity<String> deleteById(@PathVariable String tenantId) {
-        tenantService.deleteTenant(tenantId);
-        return ResponseEntity.ok().build();
+    @GetMapping("/search")
+    public ResponseEntity<List<Tenant>> search(@RequestParam String name) {
+        return ResponseEntity.ok(tenantService.getByName(name));
     }
 
     @PutMapping("/{tenantId}")
-    public ResponseEntity<String> updateById(@PathVariable String tenantId, @Valid @RequestBody
-    TenantUpdateDTO tenantDTO) {
-        tenantService.updateTenant(tenantId,tenantDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> updateById(
+            @PathVariable String tenantId,
+            @Valid @RequestBody TenantUpdateDTO tenantDTO) {
+        tenantService.updateTenant(tenantId, tenantDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{tenantId}")
+    public ResponseEntity<Void> deleteById(@PathVariable String tenantId) {
+        tenantService.deleteTenant(tenantId);
+        return ResponseEntity.noContent().build();
     }
 }
