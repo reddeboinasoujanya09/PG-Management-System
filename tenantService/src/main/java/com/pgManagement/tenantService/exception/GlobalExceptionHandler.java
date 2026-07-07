@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(TenantUpsertFailureException.class)
+    public ResponseEntity<Map<String, Object>> handleTenantUpsertFailure(TenantUpsertFailureException ex) {
+        return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "upsert operation on tenant failed", ex.getMessage());
+    }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<Map<String, Object>> handleDuplicateEmail(DuplicateEmailException ex) {
         return buildError(HttpStatus.CONFLICT, "Conflict", ex.getMessage());
@@ -51,6 +56,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
         return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
                 "An unexpected error occurred");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildError(HttpStatus status, String error, String message) {

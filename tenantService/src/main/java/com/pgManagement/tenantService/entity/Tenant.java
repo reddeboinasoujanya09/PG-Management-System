@@ -4,18 +4,24 @@ import com.pgManagement.tenantService.dto.TenantStatus;
 import com.pgManagement.tenantService.dto.TenantType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
+import java.time.Instant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "tenants")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Tenant {
 
     @Id
@@ -42,11 +48,12 @@ public class Tenant {
     @Column(name = "tenant_type", nullable = false)
     private TenantType tenantType;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
+    @CreatedDate
+    @Column(updatable = false)
+    private Instant createdAt;
 
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @LastModifiedDate
+    private Instant updatedAt;
 
     @Column(name = "vacate_date")
     private Timestamp vacateDate;

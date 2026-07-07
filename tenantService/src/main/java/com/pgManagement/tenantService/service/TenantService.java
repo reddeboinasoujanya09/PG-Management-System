@@ -3,17 +3,22 @@ package com.pgManagement.tenantService.service;
 import static com.pgManagement.tenantService.dto.TenantType.PERMANENT;
 
 import com.pgManagement.tenantService.dto.TenantDTO;
+import com.pgManagement.tenantService.dto.TenantResponseDTO;
 import com.pgManagement.tenantService.dto.TenantStatus;
 import com.pgManagement.tenantService.dto.TenantUpdateDTO;
 import com.pgManagement.tenantService.entity.Tenant;
 import com.pgManagement.tenantService.exception.DuplicateEmailException;
 import com.pgManagement.tenantService.exception.TemporaryDateRequiredException;
 import com.pgManagement.tenantService.exception.TenantNotFoundException;
+import com.pgManagement.tenantService.exception.TenantUpsertFailureException;
 import com.pgManagement.tenantService.repository.TenantRepo;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,21 +32,39 @@ public class TenantService {
     }
 
     @Transactional(readOnly = true)
-    public Tenant getById(String tenantId) {
-        return tenantRepo.findById(tenantId)
+    public TenantResponseDTO getById(String tenantId) {
+        Tenant tenant= tenantRepo.findById(tenantId)
                 .orElseThrow(() -> new TenantNotFoundException("Tenant not found with id: " + tenantId));
+        TenantResponseDTO tenantResponseDTO = new TenantResponseDTO();
+        tenantResponseDTO.setTenantId(tenant.getTenantId());
+        tenantResponseDTO.setTenantName(tenant.getTenantName());
+        tenantResponseDTO.setTenantType(tenant.getTenantType());
+        tenantResponseDTO.setTenantEmail(tenant.getTenantEmail());
+        tenantResponseDTO.setVacateDate(tenant.getVacateDate());
+        return tenantResponseDTO;
     }
 
     @Transactional(readOnly = true)
-    public List<Tenant> getByName(String tenantName) {
+    public List<TenantResponseDTO> getByName(String tenantName) {
         if (tenantName == null || tenantName.isBlank()) {
             return List.of();
         }
-        return tenantRepo.findByTenantNameContainingIgnoreCase(tenantName.trim());
+        List<Tenant> tenant= tenantRepo.findByTenantNameContainingIgnoreCase(tenantName.trim());
+        List<TenantResponseDTO> tenantResponseDTOList = new ArrayList<>();
+        for(Tenant t:tenant) {
+            TenantResponseDTO tenantResponseDTO = new TenantResponseDTO();
+            tenantResponseDTO.setTenantId(t.getTenantId());
+            tenantResponseDTO.setTenantName(t.getTenantName());
+            tenantResponseDTO.setTenantType(t.getTenantType());
+            tenantResponseDTO.setTenantEmail(t.getTenantEmail());
+            tenantResponseDTO.setVacateDate(t.getVacateDate());
+            tenantResponseDTOList.add(tenantResponseDTO);
+        }
+        return tenantResponseDTOList;
     }
 
     @Transactional
-    public Tenant createTenant(TenantDTO dto) {
+    public TenantResponseDTO createTenant(TenantDTO dto) {
         if (tenantRepo.existsByTenantEmail(dto.getTenantEmail())) {
             throw new DuplicateEmailException("Tenant with email already exists: " + dto.getTenantEmail());
         }
@@ -55,6 +78,7 @@ public class TenantService {
         tenant.setTenantStatus(TenantStatus.TO_BE_RESERVED);
         tenant.setTenantType(dto.getTenantType());
         tenant.setCreatedAt(Timestamp.from(Instant.now()));
+        tenant.setUpdatedAt(Timestamp.from(Instant.now()));
 
         if (dto.getTenantType() == PERMANENT) {
             tenant.setVacateDate(null);
@@ -64,7 +88,19 @@ public class TenantService {
         }
 
         // TODO: integrate with room-service to allocate room/bed before confirming tenant
-        return tenantRepo.save(tenant);
+        try {
+            tenantRepo.save(tenant);
+            TenantResponseDTO responseDTO = new TenantResponseDTO();
+            responseDTO.setTenantId(tenant.getTenantId());
+            responseDTO.setTenantName(tenant.getTenantName());
+            responseDTO.setTenantEmail(tenant.getTenantEmail());
+            responseDTO.setTenantType(tenant.getTenantType());
+            responseDTO.setVacateDate(tenant.getVacateDate());
+            return responseDTO;
+        }
+        catch (Exception e) {
+            throw new TenantUpsertFailureException("Tenant creation failed: " + e.getMessage());
+        }
     }
 
     @Transactional
@@ -91,21 +127,21 @@ public class TenantService {
             validateVacateDate(dto.getVacateDate());
             tenant.setVacateDate(dto.getVacateDate());
         }
-
-        tenantRepo.save(tenant);
     }
 
     @Transactional
     public void deleteTenant(String tenantId) {
-        if(tenantId == null || tenantId.isBlank()) {
-            throw new TenantNotFoundException("Please provide the tenant_id (tenant_id is empty) ");
-        }
         if (!tenantRepo.existsById(tenantId)) {
             throw new TenantNotFoundException("Tenant not found with id: " + tenantId);
         }
         tenantRepo.deleteById(tenantId);
     }
 
+    @Transactional(readOnly = true)
+    public Page<TenantResponseDTO> getAll(Pageable pageable) {
+        return tenantRepo.findAll(pageable)
+                .map(this::convertToResponseDTO);
+    }
     private void validateVacateDate(Timestamp vacateDate) {
         if (vacateDate == null) {
             throw new TemporaryDateRequiredException("Vacate date is required for temporary tenants");
@@ -113,5 +149,15 @@ public class TenantService {
         if (vacateDate.before(Timestamp.from(Instant.now()))) {
             throw new TemporaryDateRequiredException("Vacate date must be a future date");
         }
+    }
+
+    private TenantResponseDTO convertToResponseDTO(Tenant tenant) {
+        TenantResponseDTO dto = new TenantResponseDTO();
+        dto.setTenantId(tenant.getTenantId());
+        dto.setTenantName(tenant.getTenantName());
+        dto.setTenantEmail(tenant.getTenantEmail());
+        dto.setTenantType(tenant.getTenantType());
+        dto.setVacateDate(tenant.getVacateDate());
+        return dto;
     }
 }

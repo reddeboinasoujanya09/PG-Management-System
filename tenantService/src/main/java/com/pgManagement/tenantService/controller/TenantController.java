@@ -2,11 +2,15 @@ package com.pgManagement.tenantService.controller;
 
 import com.pgManagement.tenantService.dto.TenantDTO;
 import com.pgManagement.tenantService.dto.TenantUpdateDTO;
-import com.pgManagement.tenantService.entity.Tenant;
+import com.pgManagement.tenantService.dto.TenantResponseDTO;
 import com.pgManagement.tenantService.service.TenantService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,21 +33,31 @@ public class TenantController {
     }
 
     @PostMapping
-    public ResponseEntity<Tenant> createTenant(@Valid @RequestBody TenantDTO tenant) {
-        Tenant created = tenantService.createTenant(tenant);
+    public ResponseEntity<TenantResponseDTO> createTenant(@Valid @RequestBody TenantDTO tenant) {
+        TenantResponseDTO created = tenantService.createTenant(tenant);
         URI location = URI.create("/api/v1/tenants/" + created.getTenantId());
         return ResponseEntity.created(location).body(created);
     }
 
     @GetMapping("/{tenantId}")
-    public ResponseEntity<Tenant> getById(@PathVariable String tenantId) {
+    public ResponseEntity<TenantResponseDTO> getById(@PathVariable String tenantId) {
         return ResponseEntity.ok(tenantService.getById(tenantId));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Tenant>> search(@RequestParam String name) {
+    public ResponseEntity<List<TenantResponseDTO>> search(@RequestParam String name) {
+
         return ResponseEntity.ok(tenantService.getByName(name));
     }
+
+    @GetMapping()
+    public ResponseEntity<Page<TenantResponseDTO>> getAll(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "20") int size) {
+
+            Pageable pageable = PageRequest.of(page, size, Sort.by("tenantId").descending());
+            return ResponseEntity.ok(tenantService.getAll(pageable));
+        }
 
     @PutMapping("/{tenantId}")
     public ResponseEntity<Void> updateById(
@@ -55,6 +69,10 @@ public class TenantController {
 
     @DeleteMapping("/{tenantId}")
     public ResponseEntity<Void> deleteById(@PathVariable String tenantId) {
+        if (tenantId == null || tenantId.isBlank()) {
+        throw new IllegalArgumentException("Tenant ID cannot be null or blank");
+    }
+
         tenantService.deleteTenant(tenantId);
         return ResponseEntity.noContent().build();
     }
