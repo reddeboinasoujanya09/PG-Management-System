@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,23 +16,35 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(TenantUpsertFailureException.class)
+    public ResponseEntity<Map<String, Object>> handleTenantUpsertFailure(TenantUpsertFailureException ex) {
+        logger.error("handleTenantUpsertFailure : {}", ex.getMessage());
+        return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "upsert operation on tenant failed", ex.getMessage());
+    }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<Map<String, Object>> handleDuplicateEmail(DuplicateEmailException ex) {
+        logger.error("handleDuplicateEmail : {}", ex.getMessage());
         return buildError(HttpStatus.CONFLICT, "Conflict", ex.getMessage());
     }
 
     @ExceptionHandler(TemporaryDateRequiredException.class)
     public ResponseEntity<Map<String, Object>> handleTemporaryDateRequired(TemporaryDateRequiredException ex) {
+        logger.error("handleTemporaryDateRequired : {}", ex.getMessage());
         return buildError(HttpStatus.BAD_REQUEST, "Invalid Date", ex.getMessage());
     }
 
     @ExceptionHandler(TenantNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleTenantNotFound(TenantNotFoundException ex) {
+        logger.error("handleTenantNotFound : {}", ex.getMessage());
         return buildError(HttpStatus.NOT_FOUND, "Tenant Not Found", ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
+        logger.error("handleValidation : {}", ex.getMessage());
         Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(
@@ -49,8 +63,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
+        logger.error("handleGeneric : {}", ex.getMessage());
         return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
                 "An unexpected error occurred");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+        logger.error("handleIllegalArgument : {}", ex.getMessage());
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildError(HttpStatus status, String error, String message) {
