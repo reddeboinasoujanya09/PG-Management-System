@@ -17,6 +17,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,8 +33,11 @@ public class TenantService {
         this.tenantRepo = tenantRepo;
     }
 
+    Logger logger = LoggerFactory.getLogger(TenantService.class);
+
     @Transactional(readOnly = true)
     public TenantResponseDTO getById(String tenantId) {
+        logger.info("getById with id={}", tenantId);
         Tenant tenant= tenantRepo.findById(tenantId)
                 .orElseThrow(() -> new TenantNotFoundException("Tenant not found with id: " + tenantId));
         TenantResponseDTO tenantResponseDTO = new TenantResponseDTO();
@@ -46,6 +51,7 @@ public class TenantService {
 
     @Transactional(readOnly = true)
     public List<TenantResponseDTO> getByName(String tenantName) {
+        logger.info("getByName with name={}", tenantName);
         if (tenantName == null || tenantName.isBlank()) {
             return List.of();
         }
@@ -65,6 +71,7 @@ public class TenantService {
 
     @Transactional
     public TenantResponseDTO createTenant(TenantDTO dto) {
+        logger.info("createTenant with dto={}", dto);
         if (tenantRepo.existsByTenantEmail(dto.getTenantEmail())) {
             throw new DuplicateEmailException("Tenant with email already exists: " + dto.getTenantEmail());
         }
@@ -77,8 +84,7 @@ public class TenantService {
         tenant.setTenantAddress(dto.getTenantAddress());
         tenant.setTenantStatus(TenantStatus.TO_BE_RESERVED);
         tenant.setTenantType(dto.getTenantType());
-        tenant.setCreatedAt(Timestamp.from(Instant.now()));
-        tenant.setUpdatedAt(Timestamp.from(Instant.now()));
+
 
         if (dto.getTenantType() == PERMANENT) {
             tenant.setVacateDate(null);
@@ -105,6 +111,7 @@ public class TenantService {
 
     @Transactional
     public void updateTenant(String tenantId, TenantUpdateDTO dto) {
+        logger.info("updateTenant with dto={}", dto);
         Tenant tenant = tenantRepo.findById(tenantId)
                 .orElseThrow(() -> new TenantNotFoundException("Tenant not found with id: " + tenantId));
 
@@ -119,7 +126,6 @@ public class TenantService {
         tenant.setTenantAddress(dto.getTenantAddress());
         tenant.setTenantStatus(dto.getTenantStatus());
         tenant.setTenantType(dto.getTenantType());
-        tenant.setUpdatedAt(Timestamp.from(Instant.now()));
 
         if (dto.getTenantType() == PERMANENT) {
             tenant.setVacateDate(null);
@@ -131,6 +137,7 @@ public class TenantService {
 
     @Transactional
     public void deleteTenant(String tenantId) {
+        logger.info("deleteTenant with tenantId={}", tenantId);
         if (!tenantRepo.existsById(tenantId)) {
             throw new TenantNotFoundException("Tenant not found with id: " + tenantId);
         }
@@ -139,10 +146,12 @@ public class TenantService {
 
     @Transactional(readOnly = true)
     public Page<TenantResponseDTO> getAll(Pageable pageable) {
+        logger.info("getAll with pageable={}", pageable);
         return tenantRepo.findAll(pageable)
                 .map(this::convertToResponseDTO);
     }
     private void validateVacateDate(Timestamp vacateDate) {
+        logger.info("validateVacateDate with vacateDate={}", vacateDate);
         if (vacateDate == null) {
             throw new TemporaryDateRequiredException("Vacate date is required for temporary tenants");
         }
@@ -152,6 +161,7 @@ public class TenantService {
     }
 
     private TenantResponseDTO convertToResponseDTO(Tenant tenant) {
+        logger.info("convertToResponseDTO with tenant={}", tenant);
         TenantResponseDTO dto = new TenantResponseDTO();
         dto.setTenantId(tenant.getTenantId());
         dto.setTenantName(tenant.getTenantName());
