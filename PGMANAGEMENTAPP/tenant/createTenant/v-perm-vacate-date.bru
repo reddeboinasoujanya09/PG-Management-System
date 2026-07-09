@@ -1,0 +1,23 @@
+meta {
+  name: v-perm-vacate-date
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8081/api/v1/tenants
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "tenantName":"soujanya",
+  "tenantEmail": "reddeboinasoujanya4@gmail.com",
+  "tenantPhoneNumber":"9034763764",
+  "tenantAddress":"india",
+  "tenantType":"PERMANENT",
+  "vacateDate":"2026-02-03T00:00:00.000Z"
+  
+  }
+}

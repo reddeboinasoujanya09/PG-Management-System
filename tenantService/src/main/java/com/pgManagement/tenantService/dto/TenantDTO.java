@@ -1,5 +1,6 @@
 package com.pgManagement.tenantService.dto;
 
+import com.pgManagement.tenantService.entity.TenantType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

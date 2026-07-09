@@ -1,10 +1,10 @@
 package com.pgManagement.tenantService.service;
 
-import static com.pgManagement.tenantService.dto.TenantType.PERMANENT;
+import static com.pgManagement.tenantService.entity.TenantType.PERMANENT;
 
 import com.pgManagement.tenantService.dto.TenantDTO;
 import com.pgManagement.tenantService.dto.TenantResponseDTO;
-import com.pgManagement.tenantService.dto.TenantStatus;
+import com.pgManagement.tenantService.entity.TenantStatus;
 import com.pgManagement.tenantService.dto.TenantUpdateDTO;
 import com.pgManagement.tenantService.entity.Tenant;
 import com.pgManagement.tenantService.exception.DuplicateEmailException;

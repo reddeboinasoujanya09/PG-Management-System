@@ -1,0 +1,21 @@
+meta {
+  name: v-permanent
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8081/api/v1/tenants
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "tenantName":"soujanya",
+  "tenantEmail": "reddeboinasoujanya1@gmail.com",
+  "tenantPhoneNumber":"9034763764",
+  "tenantAddress":"india",
+  "tenantType":"PERMANENT"
+  }
+}

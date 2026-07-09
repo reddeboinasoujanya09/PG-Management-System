@@ -4,6 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/admin-config" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pg-service-request-service" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/room-service" vcs="Git" />
   </component>
 </project>

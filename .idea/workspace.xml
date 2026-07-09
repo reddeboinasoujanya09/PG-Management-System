@@ -5,21 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="updated few config for local setup">
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_07_07_26,_9_38 pm_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/inv-perm-email.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/inv-temp-email.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/inv-temp-miss-attr.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/inv-temp-vacate-date.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/v-perm-vacate-date.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/v-permanent.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/createTenant/v-temp.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PGMANAGEMENTAPP/tenant/updateTenant/Valid case.bru" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/RoomserviceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Bed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/BedStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/ReservationStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/RoomAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/RoomReservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/RoomStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/RoomType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomservice/src/test/java/com/pgManagement/roomservice/RoomserviceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/DuplicateEmailException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TemparoryDateRequiredException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TenantNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/Tenant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/eslint.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/nest-cli.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/src/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/src/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/src/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/test/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/test/jest-e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/tsconfig.build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/room-service/tsconfig.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/entity/TenantStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantType.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/entity/TenantType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/entity/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/entity/Tenant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +80,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="workflow" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -83,7 +122,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tenant-service&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;roomservice-1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -141,6 +180,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RoomserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="roomservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.roomservice.RoomserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TenantServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="tenantService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.tenantService.TenantServiceApplication" />
@@ -185,6 +231,8 @@
       <workItem from="1778077214529" duration="5939000" />
       <workItem from="1778993470358" duration="8751000" />
       <workItem from="1780729073191" duration="14135000" />
+      <workItem from="1783486039309" duration="1228000" />
+      <workItem from="1783601610855" duration="1934000" />
     </task>
     <task id="LOCAL-00001" summary="updated few config for local setup">
       <option name="closed" value="true" />
@@ -207,6 +255,29 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated few config for local setup" />
