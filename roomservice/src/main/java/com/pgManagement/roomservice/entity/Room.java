@@ -43,8 +43,12 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
-    //TODO: sync roomStatus and bedstatus
-
+    // Stored, updated by RoomService whenever a bed status changes:
+    // AVAILABLE     → at least one bed is AVAILABLE
+    // BOOKED        → all beds OCCUPIED by PERMANENT tenants
+    // BOOKED_TEMP   → all beds OCCUPIED, at least one TEMPORARY tenant
+    // TO_BE_VACANT  → all occupied beds, at least one TO_BE_VACANT
+    // MAINTENANCE   → set manually; not auto-derived from beds
     @Enumerated(EnumType.STRING)
     private RoomStatus roomStatus;
 
