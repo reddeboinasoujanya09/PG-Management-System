@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="updated few config for local setup">
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/DuplicateEmailException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/GlobalExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TemparoryDateRequiredException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/ExceptionHandler/TenantNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/controller/TenantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/Tenant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/dto/TenantUpdateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/repository/TenantRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/java/com/pgManagement/tenantService/service/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/tenantService/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/BedStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/BedStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Room.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="workflow" />
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -83,7 +71,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tenant-service&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;roomservice-1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -141,6 +129,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RoomserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="roomservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.roomservice.RoomserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TenantServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="tenantService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pgManagement.tenantService.TenantServiceApplication" />
@@ -185,6 +180,9 @@
       <workItem from="1778077214529" duration="5939000" />
       <workItem from="1778993470358" duration="8751000" />
       <workItem from="1780729073191" duration="14135000" />
+      <workItem from="1783486039309" duration="1228000" />
+      <workItem from="1783601610855" duration="2775000" />
+      <workItem from="1783654507346" duration="627000" />
     </task>
     <task id="LOCAL-00001" summary="updated few config for local setup">
       <option name="closed" value="true" />
@@ -207,6 +205,29 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated few config for local setup" />

@@ -1,0 +1,22 @@
+meta {
+  name: inv-temp-miss-attr
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8081/api/v1/tenants
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  "tenantName":"soujanya",
+  "tenantEmail": "reddeboinasoujanya3@gmail.com",
+  "tenantAddress":"india",
+  "tenantType":"TEMPORARY",
+  "vacateDate":"2026-12-03T00:00:00.000Z"
+  
+  }
+}

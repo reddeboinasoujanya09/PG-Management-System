@@ -1,7 +1,5 @@
 package com.pgManagement.tenantService.entity;
 
-import com.pgManagement.tenantService.dto.TenantStatus;
-import com.pgManagement.tenantService.dto.TenantType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
