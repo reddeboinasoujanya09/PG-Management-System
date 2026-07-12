@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="766c62f3-13db-4bd8-877d-9a69ac047c86" name="Changes" comment="updated few config for local setup">
+      <change afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/dto/CreateRoomResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/exception/DuplicateRoomException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/BedStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/BedStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomservice/src/main/java/com/pgManagement/roomservice/entity/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/controller/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/controller/RoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/dto/CreateRoomDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/dto/CreateRoomRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/entity/Bed.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/entity/Bed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/entity/RoomType.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/entity/RoomType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/repository/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/roomService/src/main/java/com/pgManagement/roomservice/service/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,15 +37,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="workflow" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="github-workflow" />
+        <entry key="$PROJECT_DIR$" value="Master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,28 +74,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;roomservice-1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start:dev.executor&quot;: &quot;Run&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/I578054/Desktop/interview prep- 2026/project/common/src/Main.java&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/I578054/Desktop/interview prep- 2026/project/admin-config/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "room-service/api-room",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start:dev.executor": "Run",
+    "onboarding.tips.debug.path": "/Users/I578054/Desktop/interview prep- 2026/project/common/src/Main.java",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "ts.external.directory.path": "/Users/I578054/Desktop/interview prep- 2026/project/admin-config/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/common" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.pgManagement.roomservice.exception" />
     </key>
   </component>
   <component name="RunDashboard">
