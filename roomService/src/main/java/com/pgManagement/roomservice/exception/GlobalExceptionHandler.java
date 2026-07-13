@@ -50,10 +50,16 @@ public class GlobalExceptionHandler {
                 "An unexpected error occurred");
     }
 
+    @ExceptionHandler(RoomNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleRoomNotFound(RoomNotFoundException ex) {
+        logger.error("handleRoomNotFound : {}", ex.getMessage());
+        return buildError(HttpStatus.NOT_FOUND, "Room Not Found", ex.getMessage());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+    public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
         logger.error("handleIllegalArgument : {}", ex.getMessage());
-        return ResponseEntity.badRequest().body(ex.getMessage());
+        return buildError(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildError(HttpStatus status, String error, String message) {

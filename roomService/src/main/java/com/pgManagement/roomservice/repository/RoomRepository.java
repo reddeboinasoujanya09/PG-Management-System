@@ -1,8 +1,11 @@
 package com.pgManagement.roomservice.repository;
 
 import com.pgManagement.roomservice.entity.Room;
+import com.pgManagement.roomservice.entity.RoomStatus;
+import com.pgManagement.roomservice.entity.RoomType;
 import jakarta.persistence.LockModeType;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +22,10 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
 
     boolean existsByPgIdAndRoomNumber(@NotBlank(message = "PG ID is required") UUID pgId, String roomNumber);
 
+    @Query("SELECT r FROM Room r WHERE r.pgId = :pgId " +
+           "AND (:status IS NULL OR r.roomStatus = :status) " +
+           "AND (:type IS NULL OR r.roomType = :type)")
+    List<Room> findByPgIdAndFilters(@Param("pgId") UUID pgId,
+                                    @Param("status") RoomStatus status,
+                                    @Param("type") RoomType type);
 }
