@@ -5,6 +5,7 @@ import com.pgManagement.roomservice.dto.CreateRoomResponse;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;
 import com.pgManagement.roomservice.service.RoomService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
@@ -24,15 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoomController {
 
     private final RoomService roomService;
-    private UUID roomId;
-    private RoomType newType;
 
     RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
 
     @PostMapping
-    public ResponseEntity<CreateRoomResponse> createRoom(@RequestBody CreateRoomRequest request) {
+    public ResponseEntity<CreateRoomResponse> createRoom(@Valid @RequestBody CreateRoomRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(roomService.createRoom(request));
     }
 
@@ -41,6 +40,7 @@ public class RoomController {
         return ResponseEntity.ok(roomService.getRoomDetails(roomId));
     }
 
+    // GET /api/v1/rooms?pgId=&status=&type=   (status and type are optional)
     @GetMapping
     public ResponseEntity<List<CreateRoomResponse>> getRooms(
             @RequestParam UUID pgId,
@@ -56,12 +56,11 @@ public class RoomController {
         return ResponseEntity.ok(roomService.updateRoomStatus(roomId, newStatus));
     }
 
-    @PutMapping
+    @PutMapping("/{roomId}/type")
     public ResponseEntity<CreateRoomResponse> updateRoomType(
             @PathVariable UUID roomId,
             @RequestParam RoomType newType) {
         return ResponseEntity.ok(roomService.updateRoomType(roomId, newType));
-
     }
 
     @PutMapping("/{roomId}")
@@ -71,10 +70,9 @@ public class RoomController {
         return ResponseEntity.ok(roomService.updateRoomDetails(roomId, request));
     }
 
-    @DeleteMapping()
-    public ResponseEntity<CreateRoomResponse> deleteRoom(@PathVariable UUID roomId) {
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<Void> deleteRoom(@PathVariable UUID roomId) {
         roomService.deleteRoom(roomId);
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
-
 }

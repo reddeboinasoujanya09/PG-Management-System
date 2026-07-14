@@ -4,7 +4,6 @@ import com.pgManagement.roomservice.entity.Room;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;
 import jakarta.persistence.LockModeType;
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
     @Query("SELECT MAX(r.roomNumber) FROM Room r WHERE r.pgId = :pgId AND r.floor = :floor")
     Optional<String> findMaxRoomNumberForFloor(@Param("pgId") UUID pgId, @Param("floor") Short floor);
 
-    boolean existsByPgIdAndRoomNumber(@NotBlank(message = "PG ID is required") UUID pgId, String roomNumber);
+    boolean existsByPgIdAndRoomNumber(UUID pgId, String roomNumber);
 
     @Query("SELECT r FROM Room r WHERE r.pgId = :pgId " +
            "AND (:status IS NULL OR r.roomStatus = :status) " +

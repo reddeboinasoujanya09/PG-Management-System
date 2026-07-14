@@ -20,8 +20,26 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateRoomException.class)
     public ResponseEntity<Map<String, Object>> handleDuplicateRoom(DuplicateRoomException ex) {
-        logger.error("handle duplicate room : {}", ex.getMessage());
-        return buildError(HttpStatus.CONFLICT, "", ex.getMessage());
+        logger.error("handleDuplicateRoom : {}", ex.getMessage());
+        return buildError(HttpStatus.CONFLICT, "Duplicate Room", ex.getMessage());
+    }
+
+    @ExceptionHandler(RoomNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleRoomNotFound(RoomNotFoundException ex) {
+        logger.error("handleRoomNotFound : {}", ex.getMessage());
+        return buildError(HttpStatus.NOT_FOUND, "Room Not Found", ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
+        logger.error("handleIllegalArgument : {}", ex.getMessage());
+        return buildError(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Map<String, Object>> handleIllegalState(IllegalStateException ex) {
+        logger.error("handleIllegalState : {}", ex.getMessage());
+        return buildError(HttpStatus.CONFLICT, "Invalid Operation", ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -43,23 +61,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    // must be last — catches anything not handled above
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
         logger.error("handleGeneric : {}", ex.getMessage());
         return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error",
                 "An unexpected error occurred");
-    }
-
-    @ExceptionHandler(RoomNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleRoomNotFound(RoomNotFoundException ex) {
-        logger.error("handleRoomNotFound : {}", ex.getMessage());
-        return buildError(HttpStatus.NOT_FOUND, "Room Not Found", ex.getMessage());
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
-        logger.error("handleIllegalArgument : {}", ex.getMessage());
-        return buildError(HttpStatus.BAD_REQUEST, "Bad Request", ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildError(HttpStatus status, String error, String message) {

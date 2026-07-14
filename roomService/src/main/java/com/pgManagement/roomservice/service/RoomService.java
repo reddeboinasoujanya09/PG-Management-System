@@ -8,6 +8,7 @@ import com.pgManagement.roomservice.entity.BedStatus;
 import com.pgManagement.roomservice.entity.Room;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;
+import com.pgManagement.roomservice.exception.DuplicateRoomException;
 import com.pgManagement.roomservice.exception.RoomNotFoundException;
 import com.pgManagement.roomservice.repository.RoomRepository;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class RoomService {
         }
 
         Room room = new Room();
-        room.setRoomId(UUID.randomUUID());
         room.setPgId(request.getPgId());
         room.setRoomNumber(roomNumber);
         room.setFloor(request.getFloor());
@@ -57,7 +57,7 @@ public class RoomService {
         for (int i = 1; i <= bedCount; i++) {
             Bed bed = new Bed();
             bed.setBedId(roomNumber + "-" + i);
-            bed.setBedLabel("Bed " + i);
+            bed.setBedLabel(roomNumber + "-" + i);
             bed.setBedStatus(BedStatus.AVAILABLE);
             bed.setRoom(room);
             beds.add(bed);
@@ -94,12 +94,14 @@ public class RoomService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public CreateRoomResponse getRoomDetails(UUID roomId) {
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with ID: " + roomId));
+                .orElseThrow(() -> new RoomNotFoundException(roomId));
         return toResponse(room);
     }
 
+    @Transactional(readOnly = true)
     public List<CreateRoomResponse> getRoomsByCriteria(UUID pgId, RoomStatus status, RoomType type) {
         List<Room> rooms = roomRepository.findByPgIdAndFilters(pgId, status, type);
         return rooms.stream().map(this::toResponse).toList();
@@ -108,34 +110,28 @@ public class RoomService {
     @Transactional
     public CreateRoomResponse updateRoomStatus(UUID roomId, RoomStatus newStatus) {
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with ID: " + roomId));
+                .orElseThrow(() -> new RoomNotFoundException(roomId));
         room.setRoomStatus(newStatus);
-        roomRepository.save(room);
         return toResponse(room);
-
     }
 
     @Transactional
     public CreateRoomResponse updateRoomType(UUID roomId, RoomType newType) {
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with ID: " + roomId));
-        if(newType==null|| newType.toString().isBlank())
-            throw new IllegalArgumentException("please provide valid room type");
-        if(room.getRoomType()==newType)
-            throw new IllegalArgumentException("room type is already "+newType);
+                .orElseThrow(() -> new RoomNotFoundException(roomId));
+        if (room.getRoomType() == newType)
+            throw new IllegalArgumentException("Room type is already " + newType);
 
-        room.setBeds(null);
-        room.setBeds(generateBeds(room.getRoomNumber(), newType.getBedCount(), room));
-
+        room.getBeds().clear();
+        room.getBeds().addAll(generateBeds(room.getRoomNumber(), newType.getBedCount(), room));
         room.setRoomType(newType);
-        roomRepository.save(room);
         return toResponse(room);
     }
 
     @Transactional
     public CreateRoomResponse updateRoomDetails(UUID roomId, CreateRoomRequest request) {
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with ID: " + roomId));
+                .orElseThrow(() -> new RoomNotFoundException(roomId));
         if (request.getRoomNumber() != null && !request.getRoomNumber().isBlank()) {
             if (!room.getRoomNumber().equals(request.getRoomNumber()) &&
                     roomRepository.existsByPgIdAndRoomNumber(room.getPgId(), request.getRoomNumber())) {
@@ -147,8 +143,8 @@ public class RoomService {
             room.setFloor(request.getFloor());
         }
         if (request.getRoomType() != null) {
-            room.setBeds(null);
-            room.setBeds(generateBeds(room.getRoomNumber(), request.getRoomType().getBedCount(), room));
+            room.getBeds().clear();
+            room.getBeds().addAll(generateBeds(room.getRoomNumber(), request.getRoomType().getBedCount(), room));
             room.setRoomType(request.getRoomType());
         }
         if (request.getMonthlyRent() != null) {
@@ -157,25 +153,18 @@ public class RoomService {
         if (request.getAmenities() != null) {
             room.setAmenities(request.getAmenities());
         }
-        roomRepository.save(room);
         return toResponse(room);
     }
 
     @Transactional
     public void deleteRoom(UUID roomId) {
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with ID: " + roomId));
+                .orElseThrow(() -> new RoomNotFoundException(roomId));
         for (Bed bed : room.getBeds()) {
-            BedStatus bedStatus = bed.getBedStatus();
-            if(bedStatus != BedStatus.AVAILABLE || bedStatus != BedStatus.MAINTENANCE) {
+            if (bed.getBedStatus() != BedStatus.AVAILABLE && bed.getBedStatus() != BedStatus.MAINTENANCE) {
                 throw new IllegalStateException("Cannot delete room with occupied beds.");
             }
-            else{
-                //TODO : remove bed also from bedrepository
-                roomRepository.deleteById(roomId);
-            }
         }
-
         roomRepository.deleteById(roomId);
     }
 
