@@ -4,6 +4,7 @@ import com.pgManagement.roomservice.dto.CreateRoomRequest;
 import com.pgManagement.roomservice.dto.CreateRoomResponse;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;
+import com.pgManagement.roomservice.entity.TenantType;
 import com.pgManagement.roomservice.service.RoomService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -45,9 +46,14 @@ public class RoomController {
     public ResponseEntity<List<CreateRoomResponse>> getRooms(
             @RequestParam UUID pgId,
             @RequestParam(required = false) RoomStatus status,
-            @RequestParam(required = false) RoomType type) {
-        return ResponseEntity.ok(roomService.getRoomsByCriteria(pgId, status, type));
+            @RequestParam(required = false) RoomType type,
+            @RequestParam(required = false) Short floor,
+            @RequestParam(required = false) Integer minAvailableBeds,
+            @RequestParam(required = false) TenantType tenantType) {
+        return ResponseEntity.ok(
+                roomService.getRoomsByCriteria(pgId, status, type, floor, minAvailableBeds, tenantType));
     }
+
 
     @PutMapping("/{roomId}/status")
     public ResponseEntity<CreateRoomResponse> updateRoomStatus(

@@ -5,14 +5,19 @@ import com.pgManagement.roomservice.dto.CreateRoomResponse;
 import com.pgManagement.roomservice.dto.CreateRoomResponse.BedResponse;
 import com.pgManagement.roomservice.entity.Bed;
 import com.pgManagement.roomservice.entity.BedStatus;
+gitimport com.pgManagement.roomservice.entity.AssignmentStatus;
 import com.pgManagement.roomservice.entity.Room;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;
+import com.pgManagement.roomservice.entity.TenantType;
 import com.pgManagement.roomservice.exception.DuplicateRoomException;
 import com.pgManagement.roomservice.exception.RoomNotFoundException;
+import com.pgManagement.roomservice.repository.RoomAssignmentRepository;
 import com.pgManagement.roomservice.repository.RoomRepository;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RoomService {
 
-    private final RoomRepository roomRepository;
+    private static final Set<AssignmentStatus> OPEN_ASSIGNMENT_STATUSES =
+            EnumSet.of(AssignmentStatus.PENDING_VERIFICATION, AssignmentStatus.ACTIVE);
 
-    RoomService(RoomRepository roomRepository) {
+    private final RoomRepository roomRepository;
+    private final RoomAssignmentRepository assignmentRepository;
+
+    RoomService(RoomRepository roomRepository, RoomAssignmentRepository assignmentRepository) {
         this.roomRepository = roomRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     @Transactional
@@ -102,9 +112,41 @@ public class RoomService {
     }
 
     @Transactional(readOnly = true)
-    public List<CreateRoomResponse> getRoomsByCriteria(UUID pgId, RoomStatus status, RoomType type) {
-        List<Room> rooms = roomRepository.findByPgIdAndFilters(pgId, status, type);
-        return rooms.stream().map(this::toResponse).toList();
+    public List<CreateRoomResponse> getRoomsByCriteria(
+            UUID pgId, RoomStatus status, RoomType type, Short floor, Integer minAvailableBeds, TenantType tenantType) {
+
+        List<Room> rooms = roomRepository.findByPgIdAndFilters(pgId, status, type, floor);
+
+        return rooms.stream()
+                .filter(r -> minAvailableBeds == null || availableBeds(r) >= minAvailableBeds)
+                .filter(r -> tenantType == null || isTenantTypeCompatible(r, tenantType))
+                .map(this::toResponse)
+                .toList();
+    }
+
+    private long availableBeds(Room room) {
+        return room.getBeds().stream()
+                .filter(b -> b.getBedStatus() == BedStatus.AVAILABLE)
+                .count();
+    }
+
+    private boolean isTenantTypeCompatible(Room room, TenantType tenantType) {
+        // Basic practical rule: room must have vacancy and not be maintenance.
+        if (room.getRoomStatus() == RoomStatus.MAINTENANCE) return false;
+        if (availableBeds(room) <= 0) return false;
+
+        // Optional compatibility preference by current occupancy mix.
+        if (tenantType == TenantType.PERMANENT) {
+            return room.getRoomStatus() != RoomStatus.BOOKED_TEMP;
+        }
+        return room.getRoomStatus() != RoomStatus.BOOKED;
+    }
+
+    private void ensureRoomHasNoOpenAssignments(UUID roomId) {
+        boolean hasOpen = assignmentRepository.existsByBed_Room_RoomIdAndStatusIn(roomId, OPEN_ASSIGNMENT_STATUSES);
+        if (hasOpen) {
+            throw new IllegalStateException("Cannot change room type/details while active or pending assignments exist.");
+        }
     }
 
     @Transactional
@@ -122,6 +164,7 @@ public class RoomService {
         if (room.getRoomType() == newType)
             throw new IllegalArgumentException("Room type is already " + newType);
 
+        ensureRoomHasNoOpenAssignments(roomId);
         room.getBeds().clear();
         room.getBeds().addAll(generateBeds(room.getRoomNumber(), newType.getBedCount(), room));
         room.setRoomType(newType);
@@ -133,9 +176,8 @@ public class RoomService {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new RoomNotFoundException(roomId));
         if (request.getRoomNumber() != null && !request.getRoomNumber().isBlank()) {
-            if (!room.getRoomNumber().equals(request.getRoomNumber()) &&
-                    roomRepository.existsByPgIdAndRoomNumber(room.getPgId(), request.getRoomNumber())) {
-                throw new DuplicateRoomException(request.getRoomNumber());
+            if (!room.getRoomNumber().equals(request.getRoomNumber())) {
+                throw new IllegalStateException("Room number cannot be changed after creation.");
             }
             room.setRoomNumber(request.getRoomNumber());
         }
@@ -143,6 +185,7 @@ public class RoomService {
             room.setFloor(request.getFloor());
         }
         if (request.getRoomType() != null) {
+            ensureRoomHasNoOpenAssignments(roomId);
             room.getBeds().clear();
             room.getBeds().addAll(generateBeds(room.getRoomNumber(), request.getRoomType().getBedCount(), room));
             room.setRoomType(request.getRoomType());
@@ -167,7 +210,6 @@ public class RoomService {
         }
         roomRepository.deleteById(roomId);
     }
-
 
 
 }

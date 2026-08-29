@@ -21,10 +21,17 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
 
     boolean existsByPgIdAndRoomNumber(UUID pgId, String roomNumber);
 
-    @Query("SELECT r FROM Room r WHERE r.pgId = :pgId " +
-           "AND (:status IS NULL OR r.roomStatus = :status) " +
-           "AND (:type IS NULL OR r.roomType = :type)")
-    List<Room> findByPgIdAndFilters(@Param("pgId") UUID pgId,
-                                    @Param("status") RoomStatus status,
-                                    @Param("type") RoomType type);
+    @Query("""
+    SELECT r FROM Room r
+    WHERE r.pgId = :pgId
+      AND (:status IS NULL OR r.roomStatus = :status)
+      AND (:type IS NULL OR r.roomType = :type)
+      AND (:floor IS NULL OR r.floor = :floor)
+    """)
+    List<Room> findByPgIdAndFilters(
+            @Param("pgId") UUID pgId,
+            @Param("status") RoomStatus status,
+            @Param("type") RoomType type,
+            @Param("floor") Short floor);
+
 }
