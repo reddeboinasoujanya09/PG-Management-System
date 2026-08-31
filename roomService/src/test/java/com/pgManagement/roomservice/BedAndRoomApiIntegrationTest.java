@@ -13,6 +13,7 @@ import com.pgManagement.roomservice.dto.CreateRoomRequest;
 import com.pgManagement.roomservice.dto.CreateRoomResponse;
 import com.pgManagement.roomservice.entity.RoomType;
 import com.pgManagement.roomservice.service.RoomService;
+import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -134,10 +135,11 @@ class BedAndRoomApiIntegrationTest {
     private CreateRoomResponse createRoom(UUID pgId, short floor, RoomType roomType) {
         CreateRoomRequest request = new CreateRoomRequest();
         request.setPgId(pgId);
+        request.setRoomNumber("R" + floor + "-" + UUID.randomUUID().toString().substring(0, 8));
         request.setFloor(floor);
         request.setRoomType(roomType);
         request.setMonthlyRent(BigDecimal.valueOf(10000));
-        request.setAmenities(List.of("wifi"));
+        request.setAmenities(new ArrayList<>(List.of("wifi")));
         return roomService.createRoom(request);
     }
 

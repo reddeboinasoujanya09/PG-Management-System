@@ -4,6 +4,7 @@ import com.pgManagement.roomservice.dto.bed.AssignBedRequest;
 import com.pgManagement.roomservice.dto.bed.AssignmentResponse;
 import com.pgManagement.roomservice.dto.bed.BedDetailsResponse;
 import com.pgManagement.roomservice.dto.bed.BedStatusUpdateRequest;
+import com.pgManagement.roomservice.dto.bed.ExtendAssignmentRequest;
 import com.pgManagement.roomservice.dto.bed.VacateActionRequest;
 import com.pgManagement.roomservice.dto.bed.VacateRequestCreateRequest;
 import com.pgManagement.roomservice.dto.bed.VacateRequestResponse;
@@ -31,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BedService {
 
+    private static final String BED_NOT_FOUND = "Bed not found: ";
+
     private static final Set<AssignmentStatus> OPEN_ASSIGNMENT_STATUSES =
             EnumSet.of(AssignmentStatus.PENDING_VERIFICATION, AssignmentStatus.ACTIVE);
 
@@ -55,7 +58,7 @@ public class BedService {
     @Transactional(readOnly = true)
     public BedDetailsResponse getBed(String bedId) {
         Bed bed = bedRepository.findById(bedId)
-                .orElseThrow(() -> new IllegalArgumentException("Bed not found: " + bedId));
+                .orElseThrow(() -> new IllegalArgumentException(BED_NOT_FOUND + bedId));
         return toBedResponse(bed);
     }
 
@@ -67,7 +70,7 @@ public class BedService {
     @Transactional
     public BedDetailsResponse updateBedStatus(String bedId, BedStatusUpdateRequest request) {
         Bed bed = bedRepository.findByIdForUpdate(bedId)
-                .orElseThrow(() -> new IllegalArgumentException("Bed not found: " + bedId));
+                .orElseThrow(() -> new IllegalArgumentException(BED_NOT_FOUND + bedId));
 
         BedStatus newStatus = request.newStatus();
 
@@ -91,7 +94,7 @@ public class BedService {
     @Transactional
     public AssignmentResponse assignTenant(String bedId, AssignBedRequest request) {
         Bed bed = bedRepository.findByIdForUpdate(bedId)
-                .orElseThrow(() -> new IllegalArgumentException("Bed not found: " + bedId));
+                .orElseThrow(() -> new IllegalArgumentException(BED_NOT_FOUND + bedId));
 
         if (bed.getBedStatus() != BedStatus.AVAILABLE) {
             throw new IllegalStateException("Bed is not available for assignment");
@@ -166,7 +169,7 @@ public class BedService {
     @Transactional
     public VacateRequestResponse createVacateRequest(String bedId, VacateRequestCreateRequest request) {
         Bed bed = bedRepository.findByIdForUpdate(bedId)
-                .orElseThrow(() -> new IllegalArgumentException("Bed not found: " + bedId));
+                .orElseThrow(() -> new IllegalArgumentException(BED_NOT_FOUND + bedId));
 
         RoomAssignment assignment = assignmentRepository.findFirstByBed_BedIdAndStatusInOrderByJoiningDateDesc(
                         bedId, Set.of(AssignmentStatus.ACTIVE))
@@ -208,25 +211,42 @@ public class BedService {
             throw new IllegalArgumentException("Vacate request does not belong to bed: " + bedId);
         }
 
-        if (vr.getStatus() == VacateRequestStatus.DENIED || vr.getStatus() == VacateRequestStatus.CANCELLED) {
-            throw new IllegalStateException("Cannot modify terminal vacate request state");
-        }
-
         VacateRequestStatus action = actionReq.action();
         if (action == null) {
             throw new IllegalArgumentException("action is required");
         }
 
-        switch (action) {
-            case UNDER_REVIEW -> vr.setStatus(VacateRequestStatus.UNDER_REVIEW);
-            case TO_BE_VACATED -> {
-                vr.setStatus(VacateRequestStatus.TO_BE_VACATED);
-                vr.getBed().setBedStatus(BedStatus.TO_BE_VACANT);
-                vr.getAssignment().setVacatingDate(vr.getRequestedVacateDate());
+        switch (vr.getStatus()) {
+            case CREATED -> {
+                if (action != VacateRequestStatus.UNDER_REVIEW) {
+                    throw new IllegalStateException("Allowed transition: CREATED -> UNDER_REVIEW");
+                }
+                vr.setStatus(VacateRequestStatus.UNDER_REVIEW);
             }
-            case DENIED -> vr.setStatus(VacateRequestStatus.DENIED);
-            case CANCELLED -> vr.setStatus(VacateRequestStatus.CANCELLED);
-            default -> throw new IllegalArgumentException("Unsupported action: " + action);
+            case UNDER_REVIEW -> {
+                if (action == VacateRequestStatus.TO_BE_VACATED) {
+                    vr.setStatus(VacateRequestStatus.TO_BE_VACATED);
+                    vr.getBed().setBedStatus(BedStatus.TO_BE_VACANT);
+                    vr.getAssignment().setVacatingDate(vr.getRequestedVacateDate());
+                } else if (action == VacateRequestStatus.DENIED) {
+                    vr.setStatus(VacateRequestStatus.DENIED);
+                } else {
+                    throw new IllegalStateException("Allowed transitions: UNDER_REVIEW -> TO_BE_VACATED | DENIED");
+                }
+            }
+            case TO_BE_VACATED -> {
+                if (action != VacateRequestStatus.CANCELLED) {
+                    throw new IllegalStateException("Allowed transition: TO_BE_VACATED -> CANCELLED");
+                }
+                boolean rebooked = assignmentRepository.existsByBed_BedIdAndStatusInAndJoiningDateGreaterThanEqual(
+                        bedId, OPEN_ASSIGNMENT_STATUSES, vr.getRequestedVacateDate());
+                if (rebooked) {
+                    throw new IllegalStateException("Cannot cancel; bed is already rebooked for or after vacate date");
+                }
+                vr.setStatus(VacateRequestStatus.CANCELLED);
+                vr.getBed().setBedStatus(BedStatus.OCCUPIED);
+            }
+            case DENIED, CANCELLED -> throw new IllegalStateException("Cannot modify terminal vacate request state");
         }
 
         recalculateRoomStatus(vr.getBed().getRoom());
@@ -236,7 +256,7 @@ public class BedService {
     @Transactional
     public BedDetailsResponse completeVacate(String bedId, String tenantId) {
         Bed bed = bedRepository.findByIdForUpdate(bedId)
-                .orElseThrow(() -> new IllegalArgumentException("Bed not found: " + bedId));
+                .orElseThrow(() -> new IllegalArgumentException(BED_NOT_FOUND + bedId));
 
         RoomAssignment assignment = assignmentRepository.findFirstByBed_BedIdAndStatusInOrderByJoiningDateDesc(
                         bedId, Set.of(AssignmentStatus.ACTIVE))
@@ -251,6 +271,54 @@ public class BedService {
 
         recalculateRoomStatus(bed.getRoom());
         return toBedResponse(bed);
+    }
+
+    @Transactional
+    public AssignmentResponse extendAssignment(String bedId, java.util.UUID assignmentId,
+                                               ExtendAssignmentRequest request) {
+        RoomAssignment assignment = assignmentRepository.findByIdForUpdate(assignmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Assignment not found: " + assignmentId));
+
+        if (!assignment.getBed().getBedId().equals(bedId)) {
+            throw new IllegalArgumentException("Assignment does not belong to bed: " + bedId);
+        }
+        if (assignment.getStatus() != AssignmentStatus.ACTIVE) {
+            throw new IllegalStateException("Only ACTIVE assignments can be extended");
+        }
+        if (assignment.getTenantType() != TenantType.TEMPORARY) {
+            throw new IllegalStateException("Only TEMPORARY assignments can be extended");
+        }
+        if (!request.newVacatingDate().isAfter(assignment.getVacatingDate())) {
+            throw new IllegalArgumentException("newVacatingDate must be after current vacatingDate");
+        }
+        if (!request.newVacatingDate().isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("newVacatingDate must be in the future");
+        }
+
+        assignment.setVacatingDate(request.newVacatingDate());
+        recalculateRoomStatus(assignment.getBed().getRoom());
+        return toAssignmentResponse(assignment);
+    }
+
+    @Transactional
+    public AssignmentResponse convertToPermanent(String bedId, java.util.UUID assignmentId) {
+        RoomAssignment assignment = assignmentRepository.findByIdForUpdate(assignmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Assignment not found: " + assignmentId));
+
+        if (!assignment.getBed().getBedId().equals(bedId)) {
+            throw new IllegalArgumentException("Assignment does not belong to bed: " + bedId);
+        }
+        if (assignment.getStatus() != AssignmentStatus.ACTIVE) {
+            throw new IllegalStateException("Only ACTIVE assignments can be converted");
+        }
+        if (assignment.getTenantType() == TenantType.PERMANENT) {
+            throw new IllegalStateException("Assignment is already permanent");
+        }
+
+        assignment.setTenantType(TenantType.PERMANENT);
+        assignment.setVacatingDate(assignment.getJoiningDate().plusYears(10));
+        recalculateRoomStatus(assignment.getBed().getRoom());
+        return toAssignmentResponse(assignment);
     }
 
     private void recalculateRoomStatus(Room room) {

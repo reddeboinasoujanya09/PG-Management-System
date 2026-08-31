@@ -5,7 +5,7 @@ import com.pgManagement.roomservice.dto.CreateRoomResponse;
 import com.pgManagement.roomservice.dto.CreateRoomResponse.BedResponse;
 import com.pgManagement.roomservice.entity.Bed;
 import com.pgManagement.roomservice.entity.BedStatus;
-gitimport com.pgManagement.roomservice.entity.AssignmentStatus;
+import com.pgManagement.roomservice.entity.AssignmentStatus;
 import com.pgManagement.roomservice.entity.Room;
 import com.pgManagement.roomservice.entity.RoomStatus;
 import com.pgManagement.roomservice.entity.RoomType;

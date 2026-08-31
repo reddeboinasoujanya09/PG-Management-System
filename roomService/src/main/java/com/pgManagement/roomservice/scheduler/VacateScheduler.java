@@ -29,7 +29,7 @@ public class VacateScheduler {
         var due = vacateRequestRepository.findByStatusAndRequestedVacateDate(
                 VacateRequestStatus.TO_BE_VACATED, target);
 
-        // TODO: replace with notification-service event publishing.
+        // Placeholder logging until notification integration is wired.
         due.forEach(vr -> log.info("Vacate reminder: tenantId={}, bedId={}, vacateDate={}",
                 vr.getTenantId(), vr.getBed().getBedId(), vr.getRequestedVacateDate()));
     }
