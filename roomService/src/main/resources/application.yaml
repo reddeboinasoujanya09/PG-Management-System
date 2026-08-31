@@ -3,10 +3,11 @@ spring:
     name: roomService
 
 
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/pg_management_db
-    username: admin
-    password: "pass@123"
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pg_management_db}
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:pass@123}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -20,3 +21,11 @@ spring:
 
 server:
   port: 8085
+
+room:
+  vacate:
+    reminder:
+      cron: ${ROOM_VACATE_REMINDER_CRON:0 0 9 * * *}
+    auto:
+      cron: ${ROOM_VACATE_AUTO_CRON:0 30 0 * * *}
+

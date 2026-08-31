@@ -31,8 +31,7 @@ import lombok.Data;
 public class Bed {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID bedId;
+    private String bedId;
 
     @Column(nullable = false)
     private String bedLabel;
