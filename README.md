@@ -3,7 +3,6 @@ Microservices-based PG Management System that handles tenant onboarding, room al
 ## Run Services Locally
 
 ### Prerequisites
-- Node.js + npm (for NestJS/Node services)
 - Java 17+ (for Spring Boot services)
 - Use separate terminal tabs/windows for each service.
 
